@@ -127,8 +127,8 @@ codebase). No test anywhere in the suite regressed from this fix.
 
 ## 5. Reproducibility Package
 
-- Fixed source: [`src/boot_pack.zig`](file:///home/christopherhamil/tot_hybrid/worktrees/council-sonnet/src/boot_pack.zig)
-- Unchanged (verified correct) source: [`src/mitosis.zig`](file:///home/christopherhamil/tot_hybrid/worktrees/council-sonnet/src/mitosis.zig)
+- Fixed source: [`src/boot_pack.zig`](src/boot_pack.zig)
+- Unchanged (verified correct) source: [`src/mitosis.zig`](src/mitosis.zig)
 - Reproduction:
   ```bash
   zig build test   # whole suite, includes boot_pack's 5 tests

@@ -27,7 +27,7 @@ one of those constraints — CPUs now execute billions of cache-line-local
 operations in the time a single disk seek once took — and yet the software
 architecture built for the old constraints survives almost unchanged, now
 imposing a tax on every transaction that hardware no longer requires anyone
-to pay. We term this tax, formally, the **Relational Tax**, and decompose it
+to pay. This tax is termed, formally, the **Relational Tax**, and decompose it
 into four independently-measurable components, each grounded in empirical
 telemetry gathered on physical Intel Coffee Lake (`pop-os`) and AMD Zen 4
 (`Brandys`) hardware and recorded in [`inventory/EVAL-SQLITE-SIDECAR-BENCH-20260908.md`](../../inventory/EVAL-SQLITE-SIDECAR-BENCH-20260908.md)
@@ -1399,7 +1399,7 @@ The tokenizer lane evaluates a separate boundary: semantic collapse before an un
 
 The independent corpus audit used 100 paired propositions across census, QMS, and operational domains. Its verbose arm contained 4,766 English words and expanded to 6,887 Gemma tokens or 6,805 Qwen tokens, while the semantic arm contained 100 fixed 64-byte headers (6,400 bytes total). That is 68.87× Gemma and 68.05× Qwen token expansion relative to one header per proposition, not a claim that those headers were themselves passed through BPE. The source and corpus accounting are in `inventory/EVAL-TOKENIZER-CORPUS-BPE-20260908.md`.
 
-Seat 2's physical `llama-cli` benchmark (`inventory/EVAL-LLAMACPP-TOKENIZER-BENCH-20260908.md`) evaluated the canonical N=100 proposition corpus against `/home/christopherhamil/models/gguf/gemma-4-E2B_q4_0-it.gguf` on metal (Host A: Intel Core i5-8300H, NVIDIA GeForce GTX 1060 Max-Q 6GB) across 200 individual invocations under strict Invariant 12 compliance (native compiled binary, zero background runners). Initial runs revealed a brief GPU contention window where background vocabulary extraction overlapped with items 0–4; re-benchmarking items 0–4 in strict isolation via `scripts/rebench_clashed_items.py` eliminated the contention (Item 2 prompt throughput surging from 205.1 t/s to 264.9 t/s, a 23% latency reduction).
+Seat 2's physical `llama-cli` benchmark (`inventory/EVAL-LLAMACPP-TOKENIZER-BENCH-20260908.md`) evaluated the canonical N=100 proposition corpus against `models/gguf/gemma-4-E2B_q4_0-it.gguf` on metal (Host A: Intel Core i5-8300H, NVIDIA GeForce GTX 1060 Max-Q 6GB) across 200 individual invocations under strict Invariant 12 compliance (native compiled binary, zero background runners). Initial runs revealed a brief GPU contention window where background vocabulary extraction overlapped with items 0–4; re-benchmarking items 0–4 in strict isolation via `scripts/rebench_clashed_items.py` eliminated the contention (Item 2 prompt throughput surging from 205.1 t/s to 264.9 t/s, a 23% latency reduction).
 
 The final uncontended N=100 physical telemetry confirms:
 1. **Prompt token count**: Arm A averaged 69.87 tokens (range 51–82) while Arm B (compact A-2 tuples) averaged 23.38 tokens (range 19–28)—a directly measured **2.99× reduction** in input sequence length.
@@ -1766,7 +1766,7 @@ Domain slice of the same 100 propositions:
 
 If the Arm B tuples are still fed as UTF-8 text to the same tokenizers (not the architecture's path): Gemma 1,853 tokens, Qwen 1,783 tokens. The substrate consumes the 64-byte header, not that BPE string.
 
-Models: `/home/christopherhamil/models/gguf/gemma-4-E2B_q4_0-it.gguf` (3,349,516,256 B), `/home/christopherhamil/models/gguf/Qwen2.5-Coder-7B-Instruct-Q6_K.gguf` (6,254,198,752 B). Tokenize wall: Gemma 1.691 s, Qwen 0.537 s.
+Models: `models/gguf/gemma-4-E2B_q4_0-it.gguf` (3,349,516,256 B), `models/gguf/Qwen2.5-Coder-7B-Instruct-Q6_K.gguf` (6,254,198,752 B). Tokenize wall: Gemma 1.691 s, Qwen 0.537 s.
 
 ### LaTeX
 
@@ -1795,7 +1795,7 @@ Models: `/home/christopherhamil/models/gguf/gemma-4-E2B_q4_0-it.gguf` (3,349,516
 
 ## Table 8 — Physical llama-cli Prefill Latency & Token Reduction on Metal (N=100)
 
-**Source**: `inventory/EVAL-LLAMACPP-TOKENIZER-BENCH-20260908.md`; structured JSON `inventory/llamacpp_bench_gemma_20260908.json`; raw stdout `inventory/llamacpp_bench_raw_20260908/`. Measured 2026-09-08 on Host A (`pop-os`, Intel Core i5-8300H, NVIDIA GeForce GTX 1060 Max-Q 6GB) with native `llama-cli` (`-ngl 1024`, `--single-turn --perf -n 4 -no-cnv`) against `/home/christopherhamil/models/gguf/gemma-4-E2B_q4_0-it.gguf` across 200 individual invocations (100 Arm A prose vs. 100 Arm B compact A-2 tuples). Zero Ollama processes, zero port-11434 listeners (Invariant 12). Items 0–4 re-benchmarked in strict isolation to guarantee 100% uncontended telemetry.
+**Source**: `inventory/EVAL-LLAMACPP-TOKENIZER-BENCH-20260908.md`; structured JSON `inventory/llamacpp_bench_gemma_20260908.json`; raw stdout `inventory/llamacpp_bench_raw_20260908/`. Measured 2026-09-08 on Host A (`pop-os`, Intel Core i5-8300H, NVIDIA GeForce GTX 1060 Max-Q 6GB) with native `llama-cli` (`-ngl 1024`, `--single-turn --perf -n 4 -no-cnv`) against `models/gguf/gemma-4-E2B_q4_0-it.gguf` across 200 individual invocations (100 Arm A prose vs. 100 Arm B compact A-2 tuples). Zero Ollama processes, zero port-11434 listeners (Invariant 12). Items 0–4 re-benchmarked in strict isolation to guarantee 100% uncontended telemetry.
 
 ### Markdown
 
@@ -2245,7 +2245,7 @@ This section documents Scheme A as *the* 5 Open Rectangles framework, because it
 > integration-test gap and the Rectangle 2–5 statuses recorded below are likewise refreshed in
 > §9.11.
 
-**Blackmagic Question 1, answered directly.** *Are we enforcing the GBNF logit mask in the tokenizer before token emission everywhere, or are we still allowing unconstrained natural language strings to enter `intake_gate.zig` before discovering an AST structural fracture?* Verified against `src/intake_gate.zig` and `src/lsp_indexer.zig` on this commit: **the GBNF logit mask is not enforced in `intake_gate.zig`, anywhere, today.** `grep`-confirmed: `TokenMask` (`lsp_indexer.zig`'s 0.86 ns/token mechanism) appears in exactly one file in `src/`, and it is not `intake_gate.zig`; nothing in `src/` or `tests/` calls `intake_gate.parse_and_contract` except its own C-ABI export, and that export performs no grammar check either. The precise, three-tier answer:
+**Blackmagic Question 1, answered directly.** *Is the GBNF logit mask enforced in the tokenizer before token emission everywhere, or are unconstrained natural language strings still allowed to enter `intake_gate.zig` before discovering an AST structural fracture?* Verified against `src/intake_gate.zig` and `src/lsp_indexer.zig` on this commit: **the GBNF logit mask is not enforced in `intake_gate.zig`, anywhere, today.** `grep`-confirmed: `TokenMask` (`lsp_indexer.zig`'s 0.86 ns/token mechanism) appears in exactly one file in `src/`, and it is not `intake_gate.zig`; nothing in `src/` or `tests/` calls `intake_gate.parse_and_contract` except its own C-ABI export, and that export performs no grammar check either. The precise, three-tier answer:
 
 1. **`parse_and_contract` (the actual front door)**: accepts arbitrary raw bytes as `manifest.raw_obsidian_ptr`. The only structural check is `std.mem.indexOf(u8, source, "[SEMANTICS]")` / `"[DETAILS]"` — a literal substring search for two marker strings, not a grammar. Unconstrained natural language passes through this function today exactly as the Blackmagic Question suspects.
 2. **`stampApprovedTriple` (Rectangle 1 Task 4, real and tested — `src/intake_gate.zig`, 9 unit tests including "relation token outside the closed vocabulary is rejected even when signed")**: does enforce a real closed vocabulary, but only on the *relation* token, via `mapToLogicOp`'s 8-way exact string match against `lexicon.LogicOp` — a hand-written closed-vocabulary check, not the GBNF/`TokenMask` machinery Blackmagic Question 1 asks about. This is genuine structural enforcement Task 4 added; it answers "is the predicate constrained?" with yes, and "is it the GBNF mask?" with no.
@@ -2570,7 +2570,7 @@ The defining architectural thesis of RFC-0001 is that software data structures m
 - **Invariant A-1**: $17,408\text{-byte}$ cellular memory ($272 \times 64\text{B}$ cache lines) matching L1d working sets.
 - **Invariant A-2**: $64\text{-byte}$ in-register predicate instruction headers.
 
-In Section 8, this principle was applied to eliminate the Relational Tax and collapse KV-cache overhead by up to $143,360\times$ across closed-grammar propositions. In the **Christopher Hamil Prediction Engine (CHPE)**, we extend this hardware-symbiotic discipline directly to the memory-bandwidth-bound frontier of dense autoregressive neural generation (Qwen2.5-3B-Instruct, 36 transformer layers, $3.09 \times 10^9$ parameters).
+In Section 8, this principle was applied to eliminate the Relational Tax and collapse KV-cache overhead by up to $143,360\times$ across closed-grammar propositions. In the **Christopher Hamil Prediction Engine (CHPE)**, Hamil extends this hardware-symbiotic discipline directly to the memory-bandwidth-bound frontier of dense autoregressive neural generation (Qwen2.5-3B-Instruct, 36 transformer layers, $3.09 \times 10^9$ parameters).
 
 Standard neural runtimes treat model weights as opaque tensor blobs accessed via multi-layer library abstractions (BLAS/GEMM), incurring severe page fault penalties, non-contiguous TLB misses, and DRAM bus over-fetch. CHPE abolishes these abstractions, compiling pure Zig 0.17 SIMD kernels that map contiguous weight tiles directly into physical L1/L2 cache lines:
 

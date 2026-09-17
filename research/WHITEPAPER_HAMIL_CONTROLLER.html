@@ -493,8 +493,8 @@ years of Moore’s Law inverted every one of those constraints — CPUs now
 execute billions of cache-line-local operations in the time a single
 disk seek once took — and yet the software architecture built for the
 old constraints survives almost unchanged, now imposing a tax on every
-transaction that hardware no longer requires anyone to pay. We term this
-tax, formally, the <strong>Relational Tax</strong>, and decompose it
+transaction that hardware no longer requires anyone to pay. This tax is termed,
+formally, the <strong>Relational Tax</strong>, and decompose it
 into four independently-measurable components, each grounded in
 empirical telemetry gathered on physical Intel Coffee Lake
 (<code>pop-os</code>) and AMD Zen 4 (<code>Brandys</code>) hardware and
@@ -2307,7 +2307,7 @@ themselves passed through BPE. The source and corpus accounting are in
 <p>Seat 2’s physical <code>llama-cli</code> benchmark
 (<code>inventory/EVAL-LLAMACPP-TOKENIZER-BENCH-20260908.md</code>) evaluated
 the canonical N=100 proposition corpus against
-<code>/home/christopherhamil/models/gguf/gemma-4-E2B_q4_0-it.gguf</code>
+<code>models/gguf/gemma-4-E2B_q4_0-it.gguf</code>
 on metal (Host A: Intel Core i5-8300H, NVIDIA GeForce GTX 1060 Max-Q
 6GB) across 200 individual invocations under strict Invariant 12
 compliance (native compiled binary, zero background runners). Initial
@@ -3138,9 +3138,9 @@ tokenizers (not the architecture’s path): Gemma 1,853 tokens, Qwen 1,783
 tokens. The substrate consumes the 64-byte header, not that BPE
 string.</p>
 <p>Models:
-<code>/home/christopherhamil/models/gguf/gemma-4-E2B_q4_0-it.gguf</code>
+<code>models/gguf/gemma-4-E2B_q4_0-it.gguf</code>
 (3,349,516,256 B),
-<code>/home/christopherhamil/models/gguf/Qwen2.5-Coder-7B-Instruct-Q6_K.gguf</code>
+<code>models/gguf/Qwen2.5-Coder-7B-Instruct-Q6_K.gguf</code>
 (6,254,198,752 B). Tokenize wall: Gemma 1.691 s, Qwen 0.537 s.</p>
 <h3 data-number="6.9.2" id="latex-6"><span
 class="header-section-number">6.9.2</span> LaTeX</h3>
@@ -3176,7 +3176,7 @@ Host A (<code>pop-os</code>, Intel Core i5-8300H, NVIDIA GeForce GTX
 1060 Max-Q 6GB) with native <code>llama-cli</code>
 (<code>-ngl 1024</code>, <code>--single-turn --perf -n 4 -no-cnv</code>)
 against
-<code>/home/christopherhamil/models/gguf/gemma-4-E2B_q4_0-it.gguf</code>
+<code>models/gguf/gemma-4-E2B_q4_0-it.gguf</code>
 across 200 individual invocations (100 Arm A prose vs. 100 Arm B compact
 A-2 tuples). Zero Ollama processes, zero port-11434 listeners (Invariant
 12). Items 0–4 re-benchmarked in strict isolation to guarantee 100%

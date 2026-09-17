@@ -290,7 +290,7 @@ Domain slice of the same 100 propositions:
 
 If the Arm B tuples are still fed as UTF-8 text to the same tokenizers (not the architecture's path): Gemma 1,853 tokens, Qwen 1,783 tokens. The substrate consumes the 64-byte header, not that BPE string.
 
-Models: `/home/christopherhamil/models/gguf/gemma-4-E2B_q4_0-it.gguf` (3,349,516,256 B), `/home/christopherhamil/models/gguf/Qwen2.5-Coder-7B-Instruct-Q6_K.gguf` (6,254,198,752 B). Tokenize wall: Gemma 1.691 s, Qwen 0.537 s.
+Models: `models/gguf/gemma-4-E2B_q4_0-it.gguf` (3,349,516,256 B), `models/gguf/Qwen2.5-Coder-7B-Instruct-Q6_K.gguf` (6,254,198,752 B). Tokenize wall: Gemma 1.691 s, Qwen 0.537 s.
 
 ### LaTeX
 
@@ -319,7 +319,7 @@ Models: `/home/christopherhamil/models/gguf/gemma-4-E2B_q4_0-it.gguf` (3,349,516
 
 ## Table 8 — Physical llama-cli Prefill Latency & Token Reduction on Metal (N=100)
 
-**Source**: `inventory/EVAL-LLAMACPP-TOKENIZER-BENCH-20260908.md`; structured JSON `inventory/llamacpp_bench_gemma_20260908.json`; raw stdout `inventory/llamacpp_bench_raw_20260908/`. Measured 2026-09-08 on Host A (`pop-os`, Intel Core i5-8300H, NVIDIA GeForce GTX 1060 Max-Q 6GB) with native `llama-cli` (`-ngl 1024`, `--single-turn --perf -n 4 -no-cnv`) against `/home/christopherhamil/models/gguf/gemma-4-E2B_q4_0-it.gguf` across 200 individual invocations (100 Arm A prose vs. 100 Arm B compact A-2 tuples). Zero Ollama processes, zero port-11434 listeners (Invariant 12). Items 0–4 re-benchmarked in strict isolation to guarantee 100% uncontended telemetry.
+**Source**: `inventory/EVAL-LLAMACPP-TOKENIZER-BENCH-20260908.md`; structured JSON `inventory/llamacpp_bench_gemma_20260908.json`; raw stdout `inventory/llamacpp_bench_raw_20260908/`. Measured 2026-09-08 on Host A (`pop-os`, Intel Core i5-8300H, NVIDIA GeForce GTX 1060 Max-Q 6GB) with native `llama-cli` (`-ngl 1024`, `--single-turn --perf -n 4 -no-cnv`) against `models/gguf/gemma-4-E2B_q4_0-it.gguf` across 200 individual invocations (100 Arm A prose vs. 100 Arm B compact A-2 tuples). Zero Ollama processes, zero port-11434 listeners (Invariant 12). Items 0–4 re-benchmarked in strict isolation to guarantee 100% uncontended telemetry.
 
 ### Markdown
 

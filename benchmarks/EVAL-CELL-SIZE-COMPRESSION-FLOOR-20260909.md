@@ -2,7 +2,7 @@
 
 **Date**: 2026-09-09 · **Host**: pop (lab tier — Intel i5-8300H, 8 MiB L3, AVX2, DDR4)
 **Harness**: `scratchpad/quant_floor.py` (zlib-9 / lzma-6 / bz2-9, stdlib)
-**Corpus**: **8,965,135 B from 1,437 real notes** under `/home/christopherhamil/tot_hybrid/zk/notes` —
+**Corpus**: **8,965,135 B from 1,437 real notes** under `zk/notes` —
 his own data, not synthetic.
 **Method**: for each candidate cell size, the corpus is cut into chunks of `size − 64 B` and **each
 chunk is compressed independently**. A cell cannot borrow context from the cell before it, so

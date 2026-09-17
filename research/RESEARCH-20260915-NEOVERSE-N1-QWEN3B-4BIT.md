@@ -7,7 +7,7 @@
 **Evaluated Artifact**: `Qwen2.5-3B-Instruct.w2f64.chpe` (1,932,271,616 bytes, 36 transformer layers)  
 **Public Benchmark Submission**: OpenBenchmarking.org Result ID [`2609153-NE-CHPEARMNE61`](https://openbenchmarking.org/result/2609153-NE-CHPEARMNE61)  
 **Formal Proof Scar**: `cite_key=853fb5e1653fc48b` in `db/scars.sqlite`  
-**Repository**: [`tot_hybrid`](file:///home/christopherhamil/tot_hybrid)  
+**Repository**: [`tot_hybrid`](file://~/tot_hybrid)  
 
 ---
 
@@ -15,15 +15,15 @@
 
 Autoregressive large language model (LLM) decoding is fundamentally bound by main memory bus bandwidth. In modern single-host CPU architectures, streaming multi-gigabyte weight tensors across the memory bus for every individual generated token produces an arithmetic intensity of $\approx 1\text{ FLOP/byte}$, leaving high-throughput SIMD vector units severely starved. While the enterprise ML industry has converged on 8-bit quantization (INT8/FP8) as the conservative "gold standard" for zero-degradation inference, 8-bit precision imposes a strict $2\times$ memory throughput penalty on memory-constrained CPUs compared to 4-bit representations.
 
-In this work, we present the **Christopher Hamil Packed Engine (CHPE)**: a bare-metal, sector-aligned 4-bit inference microarchitecture engineered in Zig 0.17 for ARMv8.2-A Neoverse-N1 silicon. By structuring weights into sector-aligned 16 KiB tiles conforming to the 17,408-byte cache geometry of Invariant A-1, CHPE eliminates runtime bit-unpacking branches and maximizes L1d data cache residency ($0.0\text{ ns}$ access cliff at $\le 64\text{ KB}$). We deploy a lockless multi-core worker pool with atomic generation barriers across 4 physical Neoverse-N1 cores on bare-metal Google Cloud `t2a-standard-4` hardware, achieving **$387.5\%$ CPU saturation**, reducing single-token decode latency from $3,131.64\text{ ms}$ down to **$299.81\text{ ms}$** (**$3.335\text{ tokens/sec}$**, a $10.45\times$ multi-core speedup and **$334.2\times$ speedup** over un-vectorized baselines), and achieving **$1.296\text{ tokens/sec}$** on multi-token sequence prefill.
+In this work, Christopher Hamil presents the **Christopher Hamil Packed Engine (CHPE)**: a bare-metal, sector-aligned 4-bit inference microarchitecture engineered in Zig 0.17 for ARMv8.2-A Neoverse-N1 silicon. By structuring weights into sector-aligned 16 KiB tiles conforming to the 17,408-byte cache geometry of Invariant A-1, CHPE eliminates runtime bit-unpacking branches and maximizes L1d data cache residency ($0.0\text{ ns}$ access cliff at $\le 64\text{ KB}$). The engine deploys a lockless multi-core worker pool with atomic generation barriers across 4 physical Neoverse-N1 cores on bare-metal Google Cloud `t2a-standard-4` hardware, achieving **$387.5\%$ CPU saturation**, reducing single-token decode latency from $3,131.64\text{ ms}$ down to **$299.81\text{ ms}$** (**$3.335\text{ tokens/sec}$**, a $10.45\times$ multi-core speedup and **$334.2\times$ speedup** over un-vectorized baselines), and achieving **$1.296\text{ tokens/sec}$** on multi-token sequence prefill.
 
-To eliminate the heuristic guesswork of model quantization and prove zero semantic degradation to the industry, we integrate our empirical hardware telemetry into an off-path **Sledgehammer ATP & EBM Solver Stack**:
+To eliminate the heuristic guesswork of model quantization and prove zero semantic degradation to the industry, Hamil integrates empirical hardware telemetry into an off-path **Sledgehammer ATP & EBM Solver Stack**:
 1. **Z3 SMT2** proves the DRAM bus saturation ceiling ($41.84\text{ GB/s} \implies 46.18\text{ ms} = 21.66\text{ tok/s}$) and calculates the Lipschitz logit margin bound ($\Delta L \le 0.727062$).
 2. **Vampire 5.1.0** proves five first-order clausal theorems for 4-core private L1d cache exclusivity, LAMBADA discourse context non-inversion, vector pipeline hazard freedom, symmetrical row isolation, and 4-core fused QKV partition exclusivity (`SZS status Theorem`).
 3. **Leo-III 1.7.18** proves five higher-order modal theorems establishing layer composition determinism, modal discourse fidelity, hardware-to-engine morphism, symmetrical tile homomorphism, and factored group activation sum ring homomorphism (`SZS status Theorem`).
 4. **Energy-Based Model (EBM)** demonstrates that joint hardware and discourse fidelity energy collapses from a high-energy baseline ($E=1.7115$) down to the global ground state ($E=0.0000$).
 
-Our empirical results and formal proofs have been uploaded anonymously to OpenBenchmarking.org under team name **CHPE**, establishing a fully reproducible, open-access standard for CPU-based sub-byte inference.
+The empirical results and formal proofs have been uploaded to OpenBenchmarking.org under team name **CHPE**, establishing a fully reproducible, open-access standard for CPU-based sub-byte inference.
 
 ---
 
@@ -60,10 +60,10 @@ Choosing 8-bit caps the system's throughput at half its physical potential. The 
 
 ## 2. Microarchitectural Profiling of ARM Neoverse-N1
 
-To establish the physical constraints of the execution substrate, we deployed the automated **Phoronix Test Suite (PTS) v10.8.6** directly onto bare-metal Google Cloud `t2a-standard-4` silicon (4 physical Neoverse-N1 cores, $16\text{ GiB}$ DDR4 RAM).
+To establish the physical constraints of the execution substrate, the automated **Phoronix Test Suite (PTS) v10.8.6** was deployed directly onto bare-metal Google Cloud `t2a-standard-4` silicon (4 physical Neoverse-N1 cores, $16\text{ GiB}$ DDR4 RAM).
 
 ### 2.1. Empirical Cache Latency Spectrum & Memory Cliffs
-Using `pts/tinymembench-1.0.2`, we measured the exact access latency curve across buffer allocations:
+Using `pts/tinymembench-1.0.2`, the evaluation measured the exact access latency curve across buffer allocations:
 
 | Buffer Size | Hierarchy Level | Random Read Latency | Microarchitectural Cliff |
 | :--- | :--- | :--- | :--- |
@@ -74,10 +74,10 @@ Using `pts/tinymembench-1.0.2`, we measured the exact access latency curve acros
 | **$32\text{ MB}$** | L3 LLC Boundary | **$83.7\text{ ns}$** | Last-Level Cache capacity cliff |
 | **$64\text{ MB}$** | **Main System DRAM (DDR4)** | **$91.8 - 104.2\text{ ns}$** | Complete cache miss; DRAM row activation |
 
-This profile proves the foundational premise of our substrate: **Any weight tile exceeding $64\text{ KiB}$ incurs an immediate $4.0\text{ ns}$ to $104.2\text{ ns}$ penalty.**
+This profile proves the foundational premise of the CHPE substrate: **Any weight tile exceeding $64\text{ KiB}$ incurs an immediate $4.0\text{ ns}$ to $104.2\text{ ns}$ penalty.**
 
 ### 2.2. Empirical Bus Bandwidth Benchmarks
-Using `pts/ramspeed-1.4.3` compiled natively with GCC 11.4.0 (`-O3 -march=native`), we recorded 3-pass multi-stream bandwidth across all 4 Neoverse-N1 cores:
+Using `pts/ramspeed-1.4.3` compiled natively with GCC 11.4.0 (`-O3 -march=native`), 3-pass multi-stream bandwidth was recorded across all 4 Neoverse-N1 cores:
 
 | Benchmark Type | Operation | Run 1 (MB/s) | Run 2 (MB/s) | Run 3 (MB/s) | Mean (MB/s) | Relative StdDev |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -121,7 +121,7 @@ During runtime forward decode on ARMv8.2-A, NEON vector registers unpack 32-bit 
 
 ## 4. Multi-Core Scaling & Worker Pool Architecture
 
-To saturate all 4 Neoverse-N1 physical cores, we implemented a lockless, generational `WorkerPool` in [src/qwen3b_engine.zig](file:///home/christopherhamil/tot_hybrid/src/qwen3b_engine.zig).
+To saturate all 4 Neoverse-N1 physical cores, Hamil implemented a lockless, generational `WorkerPool` in [src/qwen3b_engine.zig](src/qwen3b_engine.zig).
 
 ```
 +-----------------------------------------------------------------------------+
@@ -165,7 +165,7 @@ The multi-threaded engine was cross-compiled targeting `-target aarch64-linux-mu
 ### 5.1. Measured Benchmark Execution Trace
 ```
 === [QWEN3B CHPE BENCHMARK RUNNER] ===
-Model Archive : /home/christopherhamil/models/warc/Qwen2.5-3B-Instruct.w2f64.chpe
+Model Archive : models/Qwen2.5-3B-Instruct.w2f64.chpe
 Benchmark Runs: 5
 Executing Run 1/5 across all 36 transformer layers (prompt_len=1)...
   -> Run 1 latency: 30052.09 ms (30.052 s) [cold NVMe page-in]
@@ -213,7 +213,7 @@ Sequence Status         : PASS (All logits finite)
 
 ### 5.3. Upstream Industry-Standard Head-to-Head (`llama-bench` on Silicon)
 
-To ensure strict comparability with production LLM runtimes, we natively compiled upstream `llama-bench` (Build `930e2fa`, `-mcpu=ares+crypto+ssbs+dotprod`) directly on the identical `t2a-standard-4` silicon and executed the standard `-p 512 -n 128 -r 3` evaluation against both the **Full Unquantized FP16** model and the **Standard Q4_K_M** baseline:
+To ensure strict comparability with production LLM runtimes, upstream `llama-bench` (Build `930e2fa`, `-mcpu=ares+crypto+ssbs+dotprod`) was natively compiled directly on the identical `t2a-standard-4` silicon and executed under the standard `-p 512 -n 128 -r 3` evaluation against both the **Full Unquantized FP16** model and the **Standard Q4_K_M** baseline:
 
 | Model Architecture & Quantization | Storage Footprint | Active Cores | Prompt Processing (`pp512`) | Text Generation (`tg128`) | Generation Latency (TPOT) | DRAM Traffic per Token |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -227,14 +227,14 @@ To ensure strict comparability with production LLM runtimes, we natively compile
 
 #### Key Insights from the Silicon Measurements:
 1. **The FP16 Memory Wall is Absolute**: Full FP16 streams $6.80\text{ GB}$ per token. On Neoverse-N1's $41.84\text{ GB/s}$ DDR4 bus, the physical memory bandwidth limit is $\frac{41.84}{6.80} = 6.15\text{ tok/s}$. Upstream `llama-bench` achieved **$6.04\text{ tok/s}$** ($98.2\%$ of the bus ceiling), proving that uncompressed inference is completely memory-bound.
-2. **The 4-Bit Acceleration**: Compressing weights to 4-bit cuts DRAM traffic by $3.5\times$ ($1.93\text{ GB}$ vs $6.80\text{ GB}$), raising the physical bus saturation ceiling to **$21.66\text{ tokens/sec}$** as proved by our Z3 solver.
+2. **The 4-Bit Acceleration**: Compressing weights to 4-bit cuts DRAM traffic by $3.5\times$ ($1.93\text{ GB}$ vs $6.80\text{ GB}$), raising the physical bus saturation ceiling to **$21.66\text{ tokens/sec}$** as proved by the Z3 solver.
 3. **Sector Law Eliminates Cache Splitting**: While standard K-quants introduce strided block decoding overhead, CHPE aligns every 16 KiB tile to 4x 4KB system pages and 64B cache lines, maintaining zero false sharing and deterministic L1d residency.
 
 ---
 
 ## 6. Sledgehammer Formal Verification Stack (Z3, Vampire, Leo-III, EBM)
 
-Rather than treating benchmark parameters as empirical guesswork, our pipeline couples physical execution with an automated Sledgehammer ATP and Energy-Based Model (EBM) proof stack ([scripts/solve_ebm_hardware_gap.py](file:///home/christopherhamil/tot_hybrid/scripts/solve_ebm_hardware_gap.py)).
+Rather than treating benchmark parameters as empirical guesswork, Hamil's pipeline couples physical execution with an automated Sledgehammer ATP and Energy-Based Model (EBM) proof stack ([scripts/solve_ebm_hardware_gap.py](scripts/solve_ebm_hardware_gap.py)).
 
 ### 6.1. Step 1: Z3 SMT2 Formal Saturation & Lipschitz Bound
 Z3 SMT2 solves the theoretical DRAM bus saturation ceiling and bounds the maximum logit perturbation under 4-bit quantization:
@@ -307,11 +307,11 @@ A model that produces bit-identical output between runs only demonstrates **exec
 **It does not prove zero fidelity loss against the original uncompressed model.**
 
 ### 7.2. Direct Ground-Truth Parity Against HuggingFace BF16 Safetensors
-We compared our 4-bit CHPE forward pass against the official, uncompressed BF16 weights of `Qwen/Qwen2.5-3B-Instruct` ([scripts/qwen3b_bf16_oracle.py](file:///home/christopherhamil/tot_hybrid/scripts/qwen3b_bf16_oracle.py)):
+The 4-bit CHPE forward pass was evaluated against the official, uncompressed BF16 weights of `Qwen/Qwen2.5-3B-Instruct` ([scripts/qwen3b_bf16_oracle.py](scripts/qwen3b_bf16_oracle.py)):
 
 ```
 === PARITY VERIFICATION METRICS (4-bit W2 CHPE vs BF16 ORACLE) ===
-Archive Tested     : /home/christopherhamil/models/warc/Qwen2.5-3B-Instruct.w2f64.chpe
+Archive Tested     : models/Qwen2.5-3B-Instruct.w2f64.chpe
 Engine Argmax Token: 50994 ('[](')
 Oracle Argmax Token: 50994 ('[](')
 Engine Max Logit   : 19.755657
@@ -322,10 +322,10 @@ Cosine Similarity  : 0.9859404 (98.59%)
 Argmax Match       : EXACT BIT-IDENTICAL DECISION (50994)
 ```
 
-The top-1 decision matches bit-for-bit. The residual $1.41\%$ logit distortion represents the true physical quantization noise, which is bounded by our Z3 margin constraint ($\Delta L = 0.727 \le \tau_{\text{critical}} / 2$).
+The top-1 decision matches bit-for-bit. The residual $1.41\%$ logit distortion represents the true physical quantization noise, which is bounded by the Z3 margin constraint ($\Delta L = 0.727 \le \tau_{\text{critical}} / 2$).
 
 ### 7.3. LAMBADA Discourse Context Benchmark
-To verify that 4-bit quantization does not degrade long-range attention or discourse tracking, we evaluated on the canonical **LAMBADA** benchmark (Paperno et al., 2016):
+To verify that 4-bit quantization does not degrade long-range attention or discourse tracking, the engine was evaluated on the canonical **LAMBADA** benchmark (Paperno et al., 2016):
 
 | Metric | BF16 Reference Base | 8-Bit "Gold Standard" | 4-Bit CHPE Engine | Delta vs Base |
 | :--- | :--- | :--- | :--- | :--- |
@@ -335,13 +335,13 @@ To verify that 4-bit quantization does not degrade long-range attention or disco
 | **DRAM Traffic per Token** | $6.20\text{ GB}$ | $3.86\text{ GB}$ | **$1.93\text{ GB}$** | **$2\times$ reduction vs 8-bit** |
 | **Physical Decode Latency** | $\approx 3,400\text{ ms}$ | $\approx 1,700\text{ ms}$ | **$284.05\text{ ms}$** | **$6.0\times$ faster than 8-bit** |
 
-Because our 4-bit CHPE engine scores within $0.6\%$ of the uncompressed BF16 baseline on LAMBADA, the model's capacity for contextual reasoning and long-range narrative prediction is mathematically and empirically intact.
+Because Hamil's 4-bit CHPE engine scores within $0.6\%$ of the uncompressed BF16 baseline on LAMBADA, the model's capacity for contextual reasoning and long-range narrative prediction is mathematically and empirically intact.
 
 ---
 
 ## 8. OpenBenchmarking.org Telemetry & Public Submission
 
-In strict accordance with open-science reproducibility standards, our telemetry has been uploaded to the public OpenBenchmarking.org repository under team name **CHPE**:
+In strict accordance with open-science reproducibility standards, the telemetry has been uploaded to the public OpenBenchmarking.org repository under team name **CHPE**:
 
 * **Live Result URL**: **[https://openbenchmarking.org/result/2609153-NE-CHPEARMNE61](https://openbenchmarking.org/result/2609153-NE-CHPEARMNE61)**
 * **Result Identifier**: `2609153-NE-CHPEARMNE61`

@@ -72,7 +72,7 @@ test "Frontier 4: Grand Fusion End-to-End Composed Intent Pipeline (Happy Path &
     defer reg_boot.deinit();
 
     const pack_json =
-        \\{"boot_command":"cd /home/christopherhamil/tot_hybrid && zig test src/b2b_pack.zig","boot_files":[{"path":"src/b2b_pack.zig","sha256":"f843255681a76e62f3b2f7d6b2d54e2cb5d13c72cffc1bd4744a70828bf8e7c6"}],"class_key":"fleet.boot.b2b_pack","constraints":{"max_bytes":17408},"instruction":"Verify B2B light packet","lane_affinity_id":1,"mode":"execute","response":{"handback_schema":"fleet.agent_result.v1"},"schema":"fleet.inject.v1","skill_opcode":65541,"task_id":"boot_fleet_boot_b2b_pack","to_role":"APP-2"}
+        \\{"boot_command":"cd /workspace/tot_hybrid && zig test src/b2b_pack.zig","boot_files":[{"path":"src/b2b_pack.zig","sha256":"f843255681a76e62f3b2f7d6b2d54e2cb5d13c72cffc1bd4744a70828bf8e7c6"}],"class_key":"fleet.boot.b2b_pack","constraints":{"max_bytes":17408},"instruction":"Verify B2B light packet","lane_affinity_id":1,"mode":"execute","response":{"handback_schema":"fleet.agent_result.v1"},"schema":"fleet.inject.v1","skill_opcode":65541,"task_id":"boot_fleet_boot_b2b_pack","to_role":"APP-2"}
     ;
     const boot_ptr = try reg_boot.register("/packs/fleet.boot.b2b_pack.json", pack_json);
     try std.testing.expectEqual(@as(u32, pack_json.len), boot_ptr.pack_bytes);

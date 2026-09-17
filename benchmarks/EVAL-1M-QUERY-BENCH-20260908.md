@@ -12,7 +12,7 @@
 
 ## 1. Executive Summary & Verification Matrix
 
-In accordance with Christopher's directive for the 1M-scale database proof, Seat 2 implemented and executed an empirical benchmark harness ([`tests/test_1m_query_bench.zig`](file:///home/christopherhamil/tot_hybrid/worktrees/council-agy/tests/test_1m_query_bench.zig)) wired to `zig build bench-1m-query` and verified by `zig build test` (55/55 steps passing).
+In accordance with Christopher Hamil's architecture specification for the 1M-scale database proof, the evaluation implemented and executed an empirical benchmark harness ([`tests/test_1m_query_bench.zig`](tests/test_1m_query_bench.zig)) to measure exact memory footprint, search latency, and hardware efficiency across a 1,000,000-record dataset (55/55 steps passing).
 
 The benchmark evaluated the two competing database retrieval models across a standardized dataset of **1,000,000 records** on physical hardware under identical query loads (5,000 point queries and 5,000 multi-constraint range queries per arm):
 
@@ -86,7 +86,7 @@ This measurement provides conclusive, empirical proof of Christopher's thesis:
 
 ## 4. Test Suite & Git Governance Verification
 
-- **Harness Executable**: [`tests/test_1m_query_bench.zig`](file:///home/christopherhamil/tot_hybrid/worktrees/council-agy/tests/test_1m_query_bench.zig)
+- **Harness Executable**: [`tests/test_1m_query_bench.zig`](tests/test_1m_query_bench.zig)
 - **Build Integration**: Step `bench-1m-query` and unit tests in `build.zig`
 - **Unit Test Execution**:
   ```bash

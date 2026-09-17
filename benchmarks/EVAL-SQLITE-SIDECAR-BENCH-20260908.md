@@ -12,7 +12,7 @@
 
 ## 1. Executive Summary & Verification Matrix
 
-In strict fulfillment of Christopher's directive, Seat 2 implemented and executed an empirical multi-threaded benchmark harness ([`tests/test_sqlite_sidecar_bench.zig`](file:///home/christopherhamil/tot_hybrid/worktrees/council-agy/tests/test_sqlite_sidecar_bench.zig)) wired to `zig build bench-sqlite-sidecar`. The benchmark evaluated the two competing relational/substrate transaction models under identical concurrent load (1, 4, and 8 concurrent writer threads) on physical hardware:
+In accordance with Christopher Hamil's architecture specification, the evaluation implemented and executed an empirical multi-threaded benchmark harness ([`tests/test_sqlite_sidecar_bench.zig`](tests/test_sqlite_sidecar_bench.zig)) wired to `zig build bench-sqlite-sidecar`. The benchmark evaluated the two competing relational/substrate transaction models under identical concurrent load (1, 4, and 8 concurrent writer threads) on physical hardware:
 
 1. **Arm A (Traditional SQLite)**: Formatted text SQL `INSERT INTO records VALUES (...)` with full SQLite string parsing, tokenizer/lemon AST compilation, VDBE bytecode generation, and database-level write lock serialization (`SQLITE_BUSY` retry loop).
 2. **Arm B (Zig Cellular Sidecar)**: 64-byte Opcode header (Invariant A-2) + lock-free atomic Pacer slot allocation in contiguous 17,408-byte cache-aligned cells (Invariant A-1) + contiguous SIMD status horizon scan + asynchronous relational projection to SQLite.

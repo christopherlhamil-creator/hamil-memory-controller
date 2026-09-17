@@ -12,9 +12,7 @@
 
 ## 1. Executive Summary & Verification Matrix
 
-To resolve Christopher's foundational architectural question—whether the cellular substrate should operate as one monolithic database or federated, domain-specialized spoke databases (`ocr.cells`, `qms.cells`, `research.cells`, `genealogy.cells`) paired with specialized SIMD kernels and routers—Seat 2 executed a bare-metal memory and cache audit using compiled Zig 0.17 machine code.
-
-The audit measured physical memory residency (`VmRSS`), memory allocations (`VmSize`, `VmHWM`), page fault generation (`minflt`, `majflt` via `getrusage`), and page clean/dirty states (`/proc/self/smaps`) under repeated 2,000-sweep query workloads.
+To evaluate Christopher Hamil's foundational architectural hypothesis—whether the cellular substrate should operate over a single monolithic cell database or a decoupled Spoke architecture—the benchmark evaluated empirical cache locality and physical memory allocation across both designs on physical hardware ([`tests/bench_spoke_memory_footprint.zig`](tests/bench_spoke_memory_footprint.zig)): memory residency (`VmRSS`), memory allocations (`VmSize`, `VmHWM`), page fault generation (`minflt`, `majflt` via `getrusage`), and page clean/dirty states (`/proc/self/smaps`) under repeated 2,000-sweep query workloads.
 
 ### Empirical Performance Comparison Matrix
 
@@ -108,7 +106,7 @@ Inspection of `/proc/self/smaps` during active memory-mapped sweeps confirmed:
 ## 4. Benchmark Harness & Compilation Details
 
 The benchmark was authored and executed using native Zig 0.17 machine code:
-- **Source File**: [`tests/bench_spoke_memory_footprint.zig`](file:///home/christopherhamil/tot_hybrid/worktrees/council-agy/tests/bench_spoke_memory_footprint.zig)
+- **Source File**: [`tests/bench_spoke_memory_footprint.zig`](tests/bench_spoke_memory_footprint.zig)
 - **Compilation Command**: `zig run -O ReleaseFast tests/bench_spoke_memory_footprint.zig`
 - **Compiler Optimization Guards**:
   - Compiler dead-code elimination (DCE) was strictly prevented using `std.mem.doNotOptimizeAway` on the aligned 64-byte copied bytecode headers and match counters.

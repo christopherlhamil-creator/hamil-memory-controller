@@ -24,7 +24,7 @@ one of those constraints — CPUs now execute billions of cache-line-local
 operations in the time a single disk seek once took — and yet the software
 architecture built for the old constraints survives almost unchanged, now
 imposing a tax on every transaction that hardware no longer requires anyone
-to pay. We term this tax, formally, the **Relational Tax**, and decompose it
+to pay. This tax is termed, formally, the **Relational Tax**, and decompose it
 into four independently-measurable components, each grounded in empirical
 telemetry gathered on physical Intel Coffee Lake (`pop-os`) and AMD Zen 4
 (`Brandys`) hardware and recorded in [`inventory/EVAL-SQLITE-SIDECAR-BENCH-20260908.md`](../../inventory/EVAL-SQLITE-SIDECAR-BENCH-20260908.md)

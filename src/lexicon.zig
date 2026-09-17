@@ -1147,7 +1147,7 @@ pub fn ingestCensusFile(io: std.Io, path: []const u8) !IngestCounts {
 }
 
 test "ingestCensusFile: streams the real bronze va_gloucester_1860 pg00715.txt into geometry-legal Cells" {
-    const path = "/home/christopherhamil/RAG Data/bronze/census/census1860_dataset_workcopy/transcriptions/va_gloucester_1860/pg00715.txt";
+    const path = "data/bronze/census/census1860_dataset_workcopy/transcriptions/va_gloucester_1860/pg00715.txt";
 
     const counts = ingestCensusFile(std.testing.io, path) catch |err| switch (err) {
         error.FileNotFound => return, // bronze corpus not present on this host; not a failure

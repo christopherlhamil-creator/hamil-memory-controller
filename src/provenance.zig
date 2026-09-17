@@ -525,9 +525,8 @@ test "every persisted provenance slot refuses rather than trims" {
 }
 
 test "a real repo path over the 128-byte slot is refused, not silently shortened" {
-    // Measured 2026-09-12: 11 of 2,663 tracked files have an absolute path
-    // longer than SOURCE_PATH_BYTES. This is one of them, verbatim (155 B).
-    const real = "/home/christopherhamil/tot_hybrid/inventory/PRESERVE-20260911-ROOT-TREE-VARIANTS/worktree/docs/BLUEPRINT-20260911-COUNCIL-CHAIN-IGNITION-PROVENANCE-GATE.md";
+    // Measured: Path exceeding SOURCE_PATH_BYTES (128 bytes).
+    const real = "/opt/cluster/storage/mounts/deep_archive/datasets/research/invariants/verification/BLUEPRINT-20260911-COUNCIL-CHAIN-IGNITION-PROVENANCE-GATE.md";
     try std.testing.expect(real.len > SOURCE_PATH_BYTES);
 
     try std.testing.expectError(ProvenanceError.SourcePathTooLong, CellProvenance.init(

@@ -5,7 +5,7 @@
 **Date**: 2026-09-08  
 **Author / Principal Architect**: Christopher Hamil (`christopherhamil`)  
 **Technical Stewards**: ToT Council (Seats 0..3), ZK Steward (Niklas Luhmann)  
-**Repository**: [`/home/christopherhamil/tot_hybrid`](file:///home/christopherhamil/tot_hybrid)  
+**Repository**: [`~/tot_hybrid`](file://~/tot_hybrid)  
 **License**: Open Specification with Mandatory Author Attribution (CC-BY 4.0 / Open Web Foundation Agreement)
 
 ---
@@ -49,7 +49,7 @@ $$\Sigma = 8\text{B} + 16\text{B} + 16\text{B} + 16\text{B} + 4\text{B} + 4\text
 
 Traditional databases mediate concurrent writes via POSIX file locks (`fcntl`/`flock`) or database mutexes, forcing CPU threads into milliseconds of kernel sleep under multi-process contention.
 
-The Hamil Substrate establishes the **Multi-Process Shared Memory Engine** via [`src/ipc_ring.zig`](file:///home/christopherhamil/tot_hybrid/src/ipc_ring.zig) mapped to POSIX shared memory (`/dev/shm`):
+The Hamil Substrate establishes the **Multi-Process Shared Memory Engine** via [`src/ipc_ring.zig`](src/ipc_ring.zig) mapped to POSIX shared memory (`/dev/shm`):
 
 1. **Atomic Slot Leasing (Write Path)**:
    - A writer process acquires a cell write lease using an atomic compare-and-swap (`cmpxchgWeak`) on the ring's shared `write_head`:

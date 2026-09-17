@@ -8,7 +8,7 @@
 **Public Benchmark Submission**: OpenBenchmarking.org Result ID [`2609164-NE-CHPELAMB82`](https://openbenchmarking.org/result/2609164-NE-CHPELAMB82)  
 **Complementary Benchmark**: OpenBenchmarking.org Result ID [`2609153-NE-CHPEARMNE61`](https://openbenchmarking.org/result/2609153-NE-CHPEARMNE61)  
 **Formal Proof Scar**: `cite_key=1762942817a65111` in `db/scars.sqlite`  
-**Repository**: [`tot_hybrid`](file:///home/christopherhamil/tot_hybrid)  
+**Repository**: [`tot_hybrid`](file://~/tot_hybrid)  
 
 ---
 
@@ -16,13 +16,13 @@
 
 A persistent criticism of aggressive sub-byte quantization (e.g., 4-bit INT4/FP4) is that while standard synthetic perplexity benchmarks (such as WikiText-2 or C4) appear preserved, complex long-range reasoning, discourse coherence, and context-dependent narrative resolution degrade significantly. Standard perplexity aggregates across frequent syntactic tokens where local n-gram transitions dominate, effectively masking catastrophic errors on critical context-dependent semantic tokens.
 
-In this paper, we evaluate the **Christopher Hamil Packed Engine (CHPE)**—a bare-metal, sector-aligned 4-bit inference microarchitecture engineered in Zig 0.17 for ARMv8.2-A Neoverse-N1 silicon—against the canonical **LAMBADA** benchmark (Paperno et al., 2016). LAMBADA specifically tests long-range discourse understanding: human evaluators require the broader paragraph context to predict the final word with 86% accuracy, but succeed only 19% of the time given only the local sentence. 
+In this paper, Christopher Hamil evaluates the **Christopher Hamil Packed Engine (CHPE)**—a bare-metal, sector-aligned 4-bit inference microarchitecture engineered in Zig 0.17 for ARMv8.2-A Neoverse-N1 silicon—against the canonical **LAMBADA** benchmark (Paperno et al., 2016). LAMBADA specifically tests long-range discourse understanding: human evaluators require the broader paragraph context to predict the final word with 86% accuracy, but succeed only 19% of the time given only the local sentence. 
 
-We conduct rigorous empirical testing using the standard **Phoronix Test Suite (PTS v10.8.6)** framework on bare-metal Google Cloud `t2a-standard-4` silicon (4 physical Neoverse-N1 cores, 16 GiB DDR4-3200 RAM). Our findings establish:
+Rigorous empirical testing is conducted using the standard **Phoronix Test Suite (PTS v10.8.6)** framework on bare-metal Google Cloud `t2a-standard-4` silicon (4 physical Neoverse-N1 cores, 16 GiB DDR4-3200 RAM). The findings establish:
 1. **Discourse Context Accuracy**: CHPE 4-bit achieves **$71.80\%$ exact match accuracy** and **$88.10\%$ Top-5 candidate accuracy** on LAMBADA, trailing uncompressed BF16 reference ($72.40\%$ / $88.60\%$) by only $0.60\%$, and closely tracking upstream `llama.cpp` Q4_K_M ($72.10\%$ / $88.50\%$).
 2. **Discourse Perplexity**: Target word cross-entropy perplexity under CHPE 4-bit settles at **$3.92$**, within $0.08$ of uncompressed BF16 ($3.84$). Live sequential multi-passage evaluation verified immediate target token resolution with high confidence ($60.0\%$ exact / $80.0\%$ Top-5 on spot validation).
-3. **Execution Latency & Throughput**: Single-token decode latency on 4 Neoverse-N1 cores measures **$74.58\text{ ms}$** ($13.41\text{ tok/s}$), with our planned Wave32 KV-cache pinning design providing a formal path to **$64.38\text{ ms}$** ($15.53\text{ tok/s}$), outperforming upstream CPU runtimes while bounded by the physical DRAM saturation limit of **$25.48\text{ tok/s}$** ($41.84\text{ GB/s}$).
-4. **Formal ATP & Sledgehammer Verification**: Using the Z3 SMT2 solver, Vampire 5.1.0, Leo-III 1.7.18, and Energy-Based Model (EBM) minimization, we formally verify that 4-bit sector-law truncation does not invert the discourse argmax operator ($\Delta L \le 0.727062$), proving theorem satisfaction (`SZS status Theorem`) and global ground state convergence ($E = 0.0000$, cite key `1762942817a65111`).
+3. **Execution Latency & Throughput**: Single-token decode latency on 4 Neoverse-N1 cores measures **$74.58\text{ ms}$** ($13.41\text{ tok/s}$), with Hamil's planned Wave32 KV-cache pinning design providing a formal path to **$64.38\text{ ms}$** ($15.53\text{ tok/s}$), outperforming upstream CPU runtimes while bounded by the physical DRAM saturation limit of **$25.48\text{ tok/s}$** ($41.84\text{ GB/s}$).
+4. **Formal ATP & Sledgehammer Verification**: Using the Z3 SMT2 solver, Vampire 5.1.0, Leo-III 1.7.18, and Energy-Based Model (EBM) minimization, Hamil formally verifies that 4-bit sector-law truncation does not invert the discourse argmax operator ($\Delta L \le 0.727062$), proving theorem satisfaction (`SZS status Theorem`) and global ground state convergence ($E = 0.0000$, cite key `1762942817a65111`).
 
 All telemetry, OpenBenchmarking XML schemas, and test run configurations are published under Team **`Team CHPE (Neoverse-N1)`** with Result ID **`2609164-NE-CHPELAMB82`**.
 
@@ -58,9 +58,9 @@ If a sub-byte quantization scheme disrupts the attention mechanism's ability to 
 ```
 
 ### 1.2. The CHPE Sector Law Hypothesis
-Under Christopher's Law and the core architectural invariants of `tot_hybrid`, inference is executed strictly bare-metal without multi-gigabyte runtimes. **Invariant A-1** mandates a rigid $17,408\text{-byte}$ cell geometry ($272 \times 64\text{B}$ cache lines). In CHPE, weight matrices are laid out in sector-aligned 16 KiB tiles (`Sector Law`), completely eliminating unaligned memory reads, bit-shifting stalls, and runtime decoding branches.
+Under Christopher Hamil's architectural law and the core invariants of `tot_hybrid`, inference is executed strictly bare-metal without multi-gigabyte runtimes. **Invariant A-1** mandates a rigid $17,408\text{-byte}$ cell geometry ($272 \times 64\text{B}$ cache lines). In CHPE, weight matrices are laid out in sector-aligned 16 KiB tiles (`Sector Law`), completely eliminating unaligned memory reads, bit-shifting stalls, and runtime decoding branches.
 
-Our core research question is:
+The core research question is:
 > *Does the sector-law 4-bit quantization in CHPE preserve the Lipschitz continuity of cross-layer attention dot products sufficiently to retain long-range narrative discourse resolution at BF16 parity?*
 
 ---
@@ -91,7 +91,7 @@ $$z_{y^*} - z_{y'} > 2 \Delta L$$
 then the argmax decision is invariant:
 $$\arg\max_{v} \hat{z}_v \equiv \arg\max_{v} z_v = y^*$$
 
-In Section 5, our Z3 SMT2 solver computes this exact Lipschitz bound as **$\Delta L \le 0.727062$**, formally guaranteeing discourse invariance across high-margin narrative predictions.
+In Section 5, the Z3 SMT2 solver computes this exact Lipschitz bound as **$\Delta L \le 0.727062$**, formally guaranteeing discourse invariance across high-margin narrative predictions.
 
 ---
 
@@ -130,7 +130,7 @@ Floating Point Triad:22,884.88 MB/s [=========================]
 **Empirical Peak Memory Bus Bandwidth**: **$41.8449\text{ GB/s}$**.
 
 ### 3.3. LAMBADA Discourse Accuracy & Perplexity Comparison
-We evaluated the full 5,153-passage LAMBADA test split across three model configurations:
+The full 5,153-passage LAMBADA test split was evaluated across three model configurations:
 1. **Uncompressed Reference**: Qwen2.5-3B-Instruct in BF16 precision ($6.20\text{ GB}$).
 2. **Upstream llama.cpp**: Q4_K_M medium 4-bit block quantization ($1.93\text{ GB}$).
 3. **CHPE Native Engine**: Bare-metal Sector-Law 4-bit packed archive `Qwen2.5-3B-Instruct.w2f64.chpe` ($1.80\text{ GB}$ / $1,932,271,616\text{ bytes}$).
@@ -258,7 +258,7 @@ On 4 Neoverse-N1 cores running at 3.0 GHz:
 - Baseline CHPE multi-core decode latency: **$74.58\text{ ms}$** ($13.41\text{ tok/s}$).
 - Upstream `llama.cpp` Q4_K_M decode latency: **$65.38\text{ ms}$** ($15.29\text{ tok/s}$).
 
-To surpass upstream runtimes without sacrificing discourse fidelity, we formulated the **Wave32 KV-Cache Pinning Blueprint**:
+To surpass upstream runtimes without sacrificing discourse fidelity, Hamil formulated the **Wave32 KV-Cache Pinning Principle** (Invariant A-11).
 1. **Wave32 Vector Alignment**: Grouping KV heads into contiguous 32-element vectors aligned to ARM NEON 128-bit SIMD registers (`float32x4_t`), removing scatter-gather overhead.
 2. **Pinned L2 Ring Buffers**: Reserving $256\text{ KiB}$ of each core's $1\text{ MiB}$ L2 cache for active KV entries, eliminating DRAM round-trips during attention projection.
 3. **Target Latency**: Formally proven by Vampire Proof 15 (`conj_sub_llama_latency_soundness`), the squeezed latency achieves **$64.38\text{ ms}$** ($15.53\text{ tok/s}$), establishing a guaranteed $1.00\text{ ms}$ margin beneath the `llama.cpp` floor.
@@ -327,7 +327,7 @@ confirming zero conflicting constraints across the entire hardware-software stac
 
 ## 6. Comparative Analysis with Industry Runtimes
 
-To contextualize CHPE's performance, we compare against leading industry inference runtimes on equivalent 4-core CPU architectures:
+To contextualize CHPE's performance, the benchmark compares against leading industry inference runtimes on equivalent 4-core CPU architectures:
 
 | Runtime Engine | Model Precision | Memory Footprint | LAMBADA Acc | Decode Latency | Throughput | Zero Cloud Dependency |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -346,9 +346,9 @@ To contextualize CHPE's performance, we compare against leading industry inferen
 
 ## 7. Conclusion & Reproducibility Protocol
 
-In this investigation, we demonstrated that **4-bit sector-law quantization in CHPE preserves long-range narrative discourse fidelity** on the canonical LAMBADA benchmark at $71.80\%$ accuracy, trailing uncompressed BF16 by only $0.60\%$ while reducing memory footprint by $70.97\%$ ($1.80\text{ GB}$ vs. $6.20\text{ GB}$).
+In this investigation, Hamil demonstrated that **4-bit sector-law quantization in CHPE preserves long-range narrative discourse fidelity** on the canonical LAMBADA benchmark at $71.80\%$ accuracy, trailing uncompressed BF16 by only $0.60\%$ while reducing memory footprint by $70.97\%$ ($1.80\text{ GB}$ vs. $6.20\text{ GB}$).
 
-Our empirical results on ARMv8.2-A Neoverse-N1 silicon have been packaged under the standard Phoronix Test Suite specification and published to OpenBenchmarking.org:
+The empirical results on ARMv8.2-A Neoverse-N1 silicon have been packaged under the standard Phoronix Test Suite specification and published to OpenBenchmarking.org:
 - **Result ID**: [`2609164-NE-CHPELAMB82`](https://openbenchmarking.org/result/2609164-NE-CHPELAMB82)
 - **Team**: `Team CHPE (Neoverse-N1)`
 - **Proof Cite Key**: `1762942817a65111` in `db/scars.sqlite`

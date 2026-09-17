@@ -52,7 +52,7 @@ Needle-style routing that opens **only** `run/spoke_queues/genealogy.cells` neve
 
 ## 2. False positives on the live 1,995-cell bank
 
-`/home/christopherhamil/tot_hybrid/db/zk_cells.bin` = 34,728,960 B, 1,995 cells, remainder 0. Sweep **6.84 µs/cell** this box (payload+Soundex, not SIMD).
+`db/zk_cells.bin` = 34,728,960 B, 1,995 cells, remainder 0. Sweep **6.84 µs/cell** this box (payload+Soundex, not SIMD).
 
 | Query | Exact | Soundex FP | Notes |
 |---|---|---|---|
