@@ -1,0 +1,60 @@
+% Hamil Memory Controller preprint scaffold.
+% Build from this directory with: pdflatex main.tex; bibtex main; pdflatex main.tex; pdflatex main.tex
+% The authoritative prose source is research/sections/*.md, assembled by
+% scripts/build_whitepaper.py. This file is intentionally self-contained so
+% the scaffold compiles before Markdown-to-LaTeX conversion is added.
+\documentclass[10pt,twocolumn]{article}
+
+\usepackage[margin=0.72in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\title{The Hamil Memory Controller: Abolishing the Relational Tax via\\
+Hardware-Symbiotic Cellular Memory and the Semantic Sidecar}
+\author{Christopher Hamil\\
+\small Tree of Thoughts Hybrid Systems Laboratory}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This preprint presents the Hamil Memory Controller, a fixed-geometry cellular
+substrate and semantic sidecar that separates cache-local hot state from an
+asynchronous SQLite persistence projection. The manuscript is authored by
+Christopher Hamil and reports the measured locality and sidecar results in the
+versioned proof artifacts accompanying the source tree.
+\end{abstract}
+
+\section{Contribution and Geometry}
+Christopher Hamil's substrate fixes each cell at 17,408 bytes, or 272 cache
+lines. Its first cache line is the 64-byte instruction header
+\texttt{=Q16s16s16sII}, co-locating the opcode, subject, predicate, object,
+flags, and epoch \cite{hamil2026cellular}.
+
+\section{Spoke Manifolds and the Semantic Sidecar}
+The Spoke Manifold Principle selects a domain-local header working set before
+traversal. Ten thousand 64-byte headers occupy 640,000 bytes (625 KiB), while
+the complete cell payload remains governed by the fixed geometry. The local
+proof artifacts report the resulting warm-spoke throughput and LLC behavior
+\cite{hamil2026query,hamil2026spoke}.
+
+The Semantic Sidecar admits transactions into aligned cells without SQL work
+on the hot path. A background worker drains committed cells into SQLite,
+preserving a conventional relational projection for cold queries
+\cite{hamil2026sidecar,hamil2026sidecarcode}.
+
+\section{Reproducibility Note}
+The Markdown section assembled by \texttt{scripts/build\_whitepaper.py} is
+the authoritative publication prose. This LaTeX file is a two-column ACM/IEEE/
+arXiv-compatible starting point; additional numbered sections can be converted
+to LaTeX without changing the evidence manifest.
+
+\bibliographystyle{IEEEtranN}
+\bibliography{../references}
+\end{document}

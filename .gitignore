@@ -1,0 +1,32 @@
+# Git Hygiene & Build Artifact Exclusion Law
+# Invariant: NEVER commit binaries, object files, shared libraries, or SQLite databases.
+
+# Build artifacts & caches
+zig-out/
+.zig-cache/
+bin/
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.exe
+*.a
+
+# SQLite & Persistent state
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.db
+*.db-wal
+*.db-shm
+
+# Ephemeral runtime & dumps
+run/
+tmp/
+*.bin
+*.log
+.DS_Store
+__pycache__/
+*.pyc

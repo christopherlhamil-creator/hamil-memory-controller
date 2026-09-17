@@ -1,0 +1,788 @@
+{
+  "status": "PASS",
+  "ollama": false,
+  "measured_at": "2026-09-08T17:18:54-0500",
+  "host": {
+    "hostname": "pop-os",
+    "machine": "x86_64",
+    "python": "3.12.3",
+    "cpu": "Intel(R) Core(TM) i5-8300H CPU @ 2.30GHz"
+  },
+  "header_bytes": 64,
+  "arm_b_headers": 100,
+  "arm_b_bytes": 6400,
+  "words": {
+    "propositions": 100,
+    "words": 4766,
+    "min_words": 37,
+    "max_words": 54
+  },
+  "domains": {
+    "census": {
+      "n": 40,
+      "words": 2120,
+      "gemma_tokens": 3101,
+      "qwen_tokens": 3082,
+      "gemma_mean": 77.525,
+      "qwen_mean": 77.05
+    },
+    "qms": {
+      "n": 30,
+      "words": 1395,
+      "gemma_tokens": 1950,
+      "qwen_tokens": 1938,
+      "gemma_mean": 65.0,
+      "qwen_mean": 64.6
+    },
+    "ops": {
+      "n": 30,
+      "words": 1251,
+      "gemma_tokens": 1836,
+      "qwen_tokens": 1785,
+      "gemma_mean": 61.2,
+      "qwen_mean": 59.5
+    }
+  },
+  "models": {
+    "gemma": "/home/christopherhamil/models/gguf/gemma-4-E2B_q4_0-it.gguf",
+    "qwen": "/home/christopherhamil/models/gguf/Qwen2.5-Coder-7B-Instruct-Q6_K.gguf",
+    "gemma_bytes": 3349516256,
+    "qwen_bytes": 6254198752
+  },
+  "arm_a_gemma_tokens": {
+    "sum": 6887,
+    "mean": 68.87,
+    "min": 50,
+    "max": 81
+  },
+  "arm_a_qwen_tokens": {
+    "sum": 6805,
+    "mean": 68.05,
+    "min": 52,
+    "max": 80
+  },
+  "arm_b_units": 100,
+  "expansion_gemma_vs_header": 68.87,
+  "expansion_qwen_vs_header": 68.05,
+  "arm_b_text_gemma_tokens": {
+    "sum": 1853,
+    "mean": 18.53,
+    "min": 15,
+    "max": 23
+  },
+  "arm_b_text_qwen_tokens": {
+    "sum": 1783,
+    "mean": 17.83,
+    "min": 14,
+    "max": 22
+  },
+  "kv_128kib_arm_a_gemma_mib": 860.875,
+  "kv_128kib_arm_b_mib": 0.006103515625,
+  "tokenize_s": {
+    "gemma": 1.6910065729753114,
+    "qwen": 0.5374165030079894
+  },
+  "per_item": [
+    {
+      "id": 0,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 77,
+      "header_bytes": 64
+    },
+    {
+      "id": 1,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 77,
+      "header_bytes": 64
+    },
+    {
+      "id": 2,
+      "words": 53,
+      "gemma_tokens": 75,
+      "qwen_tokens": 74,
+      "header_bytes": 64
+    },
+    {
+      "id": 3,
+      "words": 53,
+      "gemma_tokens": 76,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 4,
+      "words": 53,
+      "gemma_tokens": 76,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 5,
+      "words": 53,
+      "gemma_tokens": 76,
+      "qwen_tokens": 78,
+      "header_bytes": 64
+    },
+    {
+      "id": 6,
+      "words": 53,
+      "gemma_tokens": 77,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 7,
+      "words": 53,
+      "gemma_tokens": 75,
+      "qwen_tokens": 75,
+      "header_bytes": 64
+    },
+    {
+      "id": 8,
+      "words": 53,
+      "gemma_tokens": 77,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 9,
+      "words": 53,
+      "gemma_tokens": 79,
+      "qwen_tokens": 78,
+      "header_bytes": 64
+    },
+    {
+      "id": 10,
+      "words": 53,
+      "gemma_tokens": 76,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 11,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 77,
+      "header_bytes": 64
+    },
+    {
+      "id": 12,
+      "words": 53,
+      "gemma_tokens": 77,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 13,
+      "words": 53,
+      "gemma_tokens": 76,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 14,
+      "words": 53,
+      "gemma_tokens": 77,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 15,
+      "words": 53,
+      "gemma_tokens": 76,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 16,
+      "words": 53,
+      "gemma_tokens": 77,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 17,
+      "words": 53,
+      "gemma_tokens": 77,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 18,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 77,
+      "header_bytes": 64
+    },
+    {
+      "id": 19,
+      "words": 53,
+      "gemma_tokens": 77,
+      "qwen_tokens": 78,
+      "header_bytes": 64
+    },
+    {
+      "id": 20,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 79,
+      "header_bytes": 64
+    },
+    {
+      "id": 21,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 77,
+      "header_bytes": 64
+    },
+    {
+      "id": 22,
+      "words": 53,
+      "gemma_tokens": 79,
+      "qwen_tokens": 78,
+      "header_bytes": 64
+    },
+    {
+      "id": 23,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 78,
+      "header_bytes": 64
+    },
+    {
+      "id": 24,
+      "words": 53,
+      "gemma_tokens": 77,
+      "qwen_tokens": 77,
+      "header_bytes": 64
+    },
+    {
+      "id": 25,
+      "words": 53,
+      "gemma_tokens": 79,
+      "qwen_tokens": 78,
+      "header_bytes": 64
+    },
+    {
+      "id": 26,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 78,
+      "header_bytes": 64
+    },
+    {
+      "id": 27,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 77,
+      "header_bytes": 64
+    },
+    {
+      "id": 28,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 78,
+      "header_bytes": 64
+    },
+    {
+      "id": 29,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 77,
+      "header_bytes": 64
+    },
+    {
+      "id": 30,
+      "words": 53,
+      "gemma_tokens": 79,
+      "qwen_tokens": 80,
+      "header_bytes": 64
+    },
+    {
+      "id": 31,
+      "words": 53,
+      "gemma_tokens": 77,
+      "qwen_tokens": 78,
+      "header_bytes": 64
+    },
+    {
+      "id": 32,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 33,
+      "words": 53,
+      "gemma_tokens": 77,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 34,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 77,
+      "header_bytes": 64
+    },
+    {
+      "id": 35,
+      "words": 53,
+      "gemma_tokens": 79,
+      "qwen_tokens": 78,
+      "header_bytes": 64
+    },
+    {
+      "id": 36,
+      "words": 53,
+      "gemma_tokens": 81,
+      "qwen_tokens": 80,
+      "header_bytes": 64
+    },
+    {
+      "id": 37,
+      "words": 53,
+      "gemma_tokens": 80,
+      "qwen_tokens": 79,
+      "header_bytes": 64
+    },
+    {
+      "id": 38,
+      "words": 53,
+      "gemma_tokens": 77,
+      "qwen_tokens": 76,
+      "header_bytes": 64
+    },
+    {
+      "id": 39,
+      "words": 53,
+      "gemma_tokens": 78,
+      "qwen_tokens": 78,
+      "header_bytes": 64
+    },
+    {
+      "id": 40,
+      "words": 54,
+      "gemma_tokens": 69,
+      "qwen_tokens": 69,
+      "header_bytes": 64
+    },
+    {
+      "id": 41,
+      "words": 53,
+      "gemma_tokens": 66,
+      "qwen_tokens": 68,
+      "header_bytes": 64
+    },
+    {
+      "id": 42,
+      "words": 54,
+      "gemma_tokens": 64,
+      "qwen_tokens": 65,
+      "header_bytes": 64
+    },
+    {
+      "id": 43,
+      "words": 40,
+      "gemma_tokens": 67,
+      "qwen_tokens": 62,
+      "header_bytes": 64
+    },
+    {
+      "id": 44,
+      "words": 42,
+      "gemma_tokens": 61,
+      "qwen_tokens": 56,
+      "header_bytes": 64
+    },
+    {
+      "id": 45,
+      "words": 45,
+      "gemma_tokens": 58,
+      "qwen_tokens": 60,
+      "header_bytes": 64
+    },
+    {
+      "id": 46,
+      "words": 46,
+      "gemma_tokens": 66,
+      "qwen_tokens": 68,
+      "header_bytes": 64
+    },
+    {
+      "id": 47,
+      "words": 46,
+      "gemma_tokens": 60,
+      "qwen_tokens": 63,
+      "header_bytes": 64
+    },
+    {
+      "id": 48,
+      "words": 44,
+      "gemma_tokens": 73,
+      "qwen_tokens": 71,
+      "header_bytes": 64
+    },
+    {
+      "id": 49,
+      "words": 41,
+      "gemma_tokens": 60,
+      "qwen_tokens": 58,
+      "header_bytes": 64
+    },
+    {
+      "id": 50,
+      "words": 54,
+      "gemma_tokens": 70,
+      "qwen_tokens": 70,
+      "header_bytes": 64
+    },
+    {
+      "id": 51,
+      "words": 53,
+      "gemma_tokens": 67,
+      "qwen_tokens": 69,
+      "header_bytes": 64
+    },
+    {
+      "id": 52,
+      "words": 54,
+      "gemma_tokens": 65,
+      "qwen_tokens": 66,
+      "header_bytes": 64
+    },
+    {
+      "id": 53,
+      "words": 40,
+      "gemma_tokens": 68,
+      "qwen_tokens": 63,
+      "header_bytes": 64
+    },
+    {
+      "id": 54,
+      "words": 42,
+      "gemma_tokens": 62,
+      "qwen_tokens": 57,
+      "header_bytes": 64
+    },
+    {
+      "id": 55,
+      "words": 45,
+      "gemma_tokens": 59,
+      "qwen_tokens": 61,
+      "header_bytes": 64
+    },
+    {
+      "id": 56,
+      "words": 46,
+      "gemma_tokens": 67,
+      "qwen_tokens": 69,
+      "header_bytes": 64
+    },
+    {
+      "id": 57,
+      "words": 46,
+      "gemma_tokens": 61,
+      "qwen_tokens": 64,
+      "header_bytes": 64
+    },
+    {
+      "id": 58,
+      "words": 44,
+      "gemma_tokens": 74,
+      "qwen_tokens": 72,
+      "header_bytes": 64
+    },
+    {
+      "id": 59,
+      "words": 41,
+      "gemma_tokens": 60,
+      "qwen_tokens": 58,
+      "header_bytes": 64
+    },
+    {
+      "id": 60,
+      "words": 54,
+      "gemma_tokens": 70,
+      "qwen_tokens": 70,
+      "header_bytes": 64
+    },
+    {
+      "id": 61,
+      "words": 53,
+      "gemma_tokens": 67,
+      "qwen_tokens": 69,
+      "header_bytes": 64
+    },
+    {
+      "id": 62,
+      "words": 54,
+      "gemma_tokens": 65,
+      "qwen_tokens": 66,
+      "header_bytes": 64
+    },
+    {
+      "id": 63,
+      "words": 40,
+      "gemma_tokens": 68,
+      "qwen_tokens": 63,
+      "header_bytes": 64
+    },
+    {
+      "id": 64,
+      "words": 42,
+      "gemma_tokens": 62,
+      "qwen_tokens": 57,
+      "header_bytes": 64
+    },
+    {
+      "id": 65,
+      "words": 45,
+      "gemma_tokens": 59,
+      "qwen_tokens": 61,
+      "header_bytes": 64
+    },
+    {
+      "id": 66,
+      "words": 46,
+      "gemma_tokens": 67,
+      "qwen_tokens": 69,
+      "header_bytes": 64
+    },
+    {
+      "id": 67,
+      "words": 46,
+      "gemma_tokens": 61,
+      "qwen_tokens": 64,
+      "header_bytes": 64
+    },
+    {
+      "id": 68,
+      "words": 44,
+      "gemma_tokens": 74,
+      "qwen_tokens": 72,
+      "header_bytes": 64
+    },
+    {
+      "id": 69,
+      "words": 41,
+      "gemma_tokens": 60,
+      "qwen_tokens": 58,
+      "header_bytes": 64
+    },
+    {
+      "id": 70,
+      "words": 45,
+      "gemma_tokens": 61,
+      "qwen_tokens": 60,
+      "header_bytes": 64
+    },
+    {
+      "id": 71,
+      "words": 46,
+      "gemma_tokens": 62,
+      "qwen_tokens": 60,
+      "header_bytes": 64
+    },
+    {
+      "id": 72,
+      "words": 41,
+      "gemma_tokens": 59,
+      "qwen_tokens": 56,
+      "header_bytes": 64
+    },
+    {
+      "id": 73,
+      "words": 44,
+      "gemma_tokens": 63,
+      "qwen_tokens": 60,
+      "header_bytes": 64
+    },
+    {
+      "id": 74,
+      "words": 43,
+      "gemma_tokens": 56,
+      "qwen_tokens": 55,
+      "header_bytes": 64
+    },
+    {
+      "id": 75,
+      "words": 42,
+      "gemma_tokens": 77,
+      "qwen_tokens": 73,
+      "header_bytes": 64
+    },
+    {
+      "id": 76,
+      "words": 39,
+      "gemma_tokens": 57,
+      "qwen_tokens": 56,
+      "header_bytes": 64
+    },
+    {
+      "id": 77,
+      "words": 40,
+      "gemma_tokens": 50,
+      "qwen_tokens": 52,
+      "header_bytes": 64
+    },
+    {
+      "id": 78,
+      "words": 40,
+      "gemma_tokens": 63,
+      "qwen_tokens": 60,
+      "header_bytes": 64
+    },
+    {
+      "id": 79,
+      "words": 37,
+      "gemma_tokens": 58,
+      "qwen_tokens": 57,
+      "header_bytes": 64
+    },
+    {
+      "id": 80,
+      "words": 45,
+      "gemma_tokens": 62,
+      "qwen_tokens": 61,
+      "header_bytes": 64
+    },
+    {
+      "id": 81,
+      "words": 46,
+      "gemma_tokens": 63,
+      "qwen_tokens": 61,
+      "header_bytes": 64
+    },
+    {
+      "id": 82,
+      "words": 41,
+      "gemma_tokens": 60,
+      "qwen_tokens": 57,
+      "header_bytes": 64
+    },
+    {
+      "id": 83,
+      "words": 44,
+      "gemma_tokens": 64,
+      "qwen_tokens": 61,
+      "header_bytes": 64
+    },
+    {
+      "id": 84,
+      "words": 43,
+      "gemma_tokens": 57,
+      "qwen_tokens": 56,
+      "header_bytes": 64
+    },
+    {
+      "id": 85,
+      "words": 42,
+      "gemma_tokens": 78,
+      "qwen_tokens": 74,
+      "header_bytes": 64
+    },
+    {
+      "id": 86,
+      "words": 39,
+      "gemma_tokens": 58,
+      "qwen_tokens": 57,
+      "header_bytes": 64
+    },
+    {
+      "id": 87,
+      "words": 40,
+      "gemma_tokens": 51,
+      "qwen_tokens": 53,
+      "header_bytes": 64
+    },
+    {
+      "id": 88,
+      "words": 40,
+      "gemma_tokens": 64,
+      "qwen_tokens": 61,
+      "header_bytes": 64
+    },
+    {
+      "id": 89,
+      "words": 37,
+      "gemma_tokens": 58,
+      "qwen_tokens": 57,
+      "header_bytes": 64
+    },
+    {
+      "id": 90,
+      "words": 45,
+      "gemma_tokens": 62,
+      "qwen_tokens": 61,
+      "header_bytes": 64
+    },
+    {
+      "id": 91,
+      "words": 46,
+      "gemma_tokens": 63,
+      "qwen_tokens": 61,
+      "header_bytes": 64
+    },
+    {
+      "id": 92,
+      "words": 41,
+      "gemma_tokens": 60,
+      "qwen_tokens": 57,
+      "header_bytes": 64
+    },
+    {
+      "id": 93,
+      "words": 44,
+      "gemma_tokens": 64,
+      "qwen_tokens": 61,
+      "header_bytes": 64
+    },
+    {
+      "id": 94,
+      "words": 43,
+      "gemma_tokens": 57,
+      "qwen_tokens": 56,
+      "header_bytes": 64
+    },
+    {
+      "id": 95,
+      "words": 42,
+      "gemma_tokens": 78,
+      "qwen_tokens": 74,
+      "header_bytes": 64
+    },
+    {
+      "id": 96,
+      "words": 39,
+      "gemma_tokens": 58,
+      "qwen_tokens": 57,
+      "header_bytes": 64
+    },
+    {
+      "id": 97,
+      "words": 40,
+      "gemma_tokens": 51,
+      "qwen_tokens": 53,
+      "header_bytes": 64
+    },
+    {
+      "id": 98,
+      "words": 40,
+      "gemma_tokens": 64,
+      "qwen_tokens": 61,
+      "header_bytes": 64
+    },
+    {
+      "id": 99,
+      "words": 37,
+      "gemma_tokens": 58,
+      "qwen_tokens": 57,
+      "header_bytes": 64
+    }
+  ],
+  "headers_sha256": "bbf4c828630d8b69510859682fc75b5992cc46cf84a2fe0d0cd31a4782b564c2"
+}

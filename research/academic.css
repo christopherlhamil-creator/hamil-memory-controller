@@ -1,0 +1,182 @@
+@page {
+    size: letter;
+    margin: 20mm;
+}
+
+html, body {
+    background-color: #ffffff !important;
+    color: #111111 !important;
+    font-family: "Liberation Serif", "Times New Roman", Times, Georgia, serif;
+    font-size: 10pt;
+    line-height: 1.45;
+    margin: 0;
+    padding: 0;
+}
+
+.title-block {
+    text-align: center;
+    margin-bottom: 2em;
+    padding-bottom: 1.5em;
+    border-bottom: 2px solid #111;
+}
+
+h1.title {
+    font-size: 18pt;
+    font-weight: bold;
+    margin-bottom: 0.4em;
+    line-height: 1.25;
+}
+
+p.author {
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 0.3em 0 0.1em 0;
+}
+
+p.affiliation {
+    font-size: 10pt;
+    font-style: italic;
+    color: #444;
+    margin: 0.1em 0;
+}
+
+p.date {
+    font-size: 9.5pt;
+    color: #555;
+    margin-top: 0.5em;
+}
+
+h1 {
+    font-size: 13pt;
+    font-weight: bold;
+    border-bottom: 1pt solid #222;
+    padding-bottom: 2px;
+    margin-top: 2em;
+    page-break-after: avoid;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+h2 {
+    font-size: 11pt;
+    font-weight: bold;
+    margin-top: 1.4em;
+    margin-bottom: 0.4em;
+    page-break-after: avoid;
+}
+
+h3 {
+    font-size: 10pt;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 1.1em;
+    margin-bottom: 0.3em;
+    page-break-after: avoid;
+}
+
+p {
+    margin: 0.6em 0;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1.2em 0;
+    font-size: 8.5pt;
+    font-family: "Liberation Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    page-break-inside: avoid;
+}
+
+th {
+    border-top: 1.5pt solid #111;
+    border-bottom: 1pt solid #111;
+    background-color: #f8f9fa;
+    padding: 5px 7px;
+    text-align: left;
+    font-weight: bold;
+}
+
+td {
+    border-bottom: 0.5pt solid #e2e8f0;
+    padding: 4px 7px;
+    vertical-align: top;
+}
+
+tr:last-child td {
+    border-bottom: 1.5pt solid #111;
+}
+
+code {
+    font-family: "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
+    font-size: 8pt;
+    background-color: #f1f5f9;
+    padding: 1px 3px;
+    border-radius: 2px;
+    color: #0f172a;
+}
+
+pre {
+    background-color: #f8fafc;
+    border: 0.5pt solid #cbd5e1;
+    border-radius: 3px;
+    padding: 8px 10px;
+    font-size: 7.5pt;
+    line-height: 1.3;
+    overflow-x: auto;
+    page-break-inside: avoid;
+    font-family: "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+blockquote {
+    border-left: 2pt solid #3b82f6;
+    margin: 1em 0;
+    padding: 0.3em 0.8em;
+    color: #334155;
+    background-color: #f8fafc;
+    font-style: italic;
+}
+
+#TOC {
+    background-color: #ffffff;
+    border: 0.5pt solid #cbd5e1;
+    padding: 12px 20px;
+    margin: 1.5em 0;
+    page-break-after: always;
+}
+
+#TOC h2 {
+    margin-top: 0;
+    font-size: 11pt;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 0.5pt solid #94a3b8;
+    padding-bottom: 3px;
+}
+
+#TOC ul {
+    list-style-type: none;
+    padding-left: 1em;
+    margin: 0.3em 0;
+}
+
+#TOC > ul {
+    padding-left: 0;
+}
+
+#TOC li {
+    margin: 0.2em 0;
+    font-size: 8.5pt;
+}
+
+#TOC a {
+    text-decoration: none;
+    color: #1e40af;
+}
