@@ -1,0 +1,19 @@
+{
+  "audit": "ZIGlite TigerBeetle-Grade Storage Fault-Injection & Poisoning Audit",
+  "timestamp": "2026-09-18T23:28:40Z",
+  "total_iterations": 10000,
+  "seed": "0x00001337BEEFCAFE",
+  "zero_poisoning_guarantee": true,
+  "metrics": {
+    "native_fuzzer_iterations": 5000,
+    "native_fuzzer_time_sec": 20.08304584799771,
+    "oracle_iterations": 5000,
+    "oracle_time_sec": 464.6690332220023,
+    "torn_writes_verified": 1005,
+    "bitflips_verified": 1022,
+    "zero_fills_verified": 997,
+    "swaps_verified": 974,
+    "superblock_verified": 1002,
+    "poisoning_violations": 0
+  }
+}

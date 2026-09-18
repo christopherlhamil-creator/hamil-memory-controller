@@ -71,6 +71,26 @@ pub fn build(b: *std.Build) void {
     });
     b.installArtifact(lib);
 
+    // ── ZIGlite Physical Sector Durability & Fault Fuzzing Modules ───────────
+
+    const ziglite_durability = b.addModule("ziglite_durability", .{
+        .root_source_file = b.path("src/ziglite/durability.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const ziglite_c_abi = b.addModule("ziglite_c_abi", .{
+        .root_source_file = b.path("src/ziglite/c_abi.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const ziglite_fault_injector = b.addModule("ziglite_fault_injector", .{
+        .root_source_file = b.path("src/ziglite/fault_injector.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
     // ── Tests ────────────────────────────────────────────────────────────────
 
     const controller_tests = b.addTest(.{
@@ -83,7 +103,55 @@ pub fn build(b: *std.Build) void {
     });
     const run_geometry_tests = b.addRunArtifact(geometry_tests);
 
-    const test_step = b.step("test", "Run memory controller unit tests");
+    const test_fault_injector_mod = b.createModule(.{
+        .root_source_file = b.path("tests/fault_injector_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    test_fault_injector_mod.addImport("ziglite_fault_injector", ziglite_fault_injector);
+    const test_fault_injector_artifact = b.addTest(.{ .root_module = test_fault_injector_mod });
+    const run_test_fault_injector = b.addRunArtifact(test_fault_injector_artifact);
+
+    const test_durability_recovery_mod = b.createModule(.{
+        .root_source_file = b.path("tests/durability_recovery_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    test_durability_recovery_mod.addImport("ziglite_durability", ziglite_durability);
+    const test_durability_recovery_artifact = b.addTest(.{ .root_module = test_durability_recovery_mod });
+    const run_test_durability_recovery = b.addRunArtifact(test_durability_recovery_artifact);
+
+    const test_query_poison_mod = b.createModule(.{
+        .root_source_file = b.path("tests/query_poison_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    test_query_poison_mod.addImport("ziglite_c_abi", ziglite_c_abi);
+    const test_query_poison_artifact = b.addTest(.{ .root_module = test_query_poison_mod });
+    const run_test_query_poison = b.addRunArtifact(test_query_poison_artifact);
+
+    const storage_fuzzer_mod = b.createModule(.{
+        .root_source_file = b.path("tests/storage_fuzzer.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    storage_fuzzer_mod.addImport("ziglite_c_abi", ziglite_c_abi);
+    const storage_fuzzer_exe = b.addExecutable(.{
+        .name = "storage_fuzzer",
+        .root_module = storage_fuzzer_mod,
+    });
+    const run_storage_fuzzer = b.addRunArtifact(storage_fuzzer_exe);
+
+    const test_fuzz_step = b.step(
+        "test-fuzz",
+        "Run ZIGlite native sector mutation & offline corruption fuzzer",
+    );
+    test_fuzz_step.dependOn(&run_storage_fuzzer.step);
+
+    const test_step = b.step("test", "Run all unit and durability tests");
     test_step.dependOn(&run_controller_tests.step);
     test_step.dependOn(&run_geometry_tests.step);
+    test_step.dependOn(&run_test_fault_injector.step);
+    test_step.dependOn(&run_test_durability_recovery.step);
+    test_step.dependOn(&run_test_query_poison.step);
 }
